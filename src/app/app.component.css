@@ -1,0 +1,22 @@
+header{
+  height: 30px;
+  width: 100%;
+  background-color: #B0DCEE;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+.main{
+  display: flex;
+  width: 100%;
+}
+.content{
+  flex: 1 1 0%;
+}
+footer{
+  height: 60px;
+  width: 100%;
+  background-color: #B0DCEE;
+}

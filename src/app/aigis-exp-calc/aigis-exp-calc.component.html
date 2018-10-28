@@ -1,0 +1,81 @@
+<section id="condition" *ngIf="expTable">
+  <h1>経験値計算</h1>
+		<ul>
+			<li>
+				<span class="rowname">レア度</span>
+<div>
+<input *ngFor="let rarity of expTable.rarities" type="button" class="btn rarity-button rare{{rarity.id}}" value="{{rarity.name}}" (click)="setRarity(rarity)"/>
+</div>
+</li>
+<li *ngIf="rarity">
+<span *ngFor="let btnTxt of levelBtnTxt">
+  <button class="btn" type="button" *ngIf="btnTxt" (click)="setGoal(1,btnTxt)">1→{{btnTxt}}</button>
+</span>
+</li>
+<li>
+  <label class="lbl" for="nowLevel" name="nowLevel">
+    <span class="rowname">現在Lv.</span>
+    <input id="nowLevel" type="number" class="txtfiled" [(ngModel)]="nowLevel" placeholder="現在のレベル" (change)="calcExp()">
+  </label>
+</li>
+<li>
+  <label class="lbl" for="goallevel" name="goallevel">
+    <span class="rowname">目標Lv.</span>
+    <input id="goallevel" type="number" class="txtfiled" [(ngModel)]="goalLevel" placeholder="目標のレベル" (change)="calcExp()">
+  </label>
+</li>
+<li>
+  <label class="lbl" for="nextlvExp" name="nextlvExp">
+    <span class="rowname">次Lvまで</span>
+    <input id="nextlvExp" type="number" class="txtfiled" [(ngModel)]="nextlvExp" placeholder="次レベルまでの経験値" (change)="calcExp()">
+  </label>
+  <button class="btn" type="button" (click)="setNextlvExpMax(nowLevel)">MAX</button>
+</li>
+</ul>
+
+<output>
+  <span class="rowname">必要EXP</span>
+  {{needExp}}
+</output>
+<div *ngFor="let output of outputs">
+  {{output.name}} {{output.quantity}} {{output.totalExp}}
+</div>
+
+<details *ngIf="expUnits">
+  <summary>合成ユニット</summary>
+  <ul>
+    <li>
+    <span class="toggle-lbl">サリエット(1.1倍)</span>
+      <input id="toggle" class="toggle" type="checkbox" [(ngModel)]="checked">
+    <label for="toggle"></label>
+  </li>
+  </ul>
+  <dl>
+  <dt>
+    アーマー
+  </dt>
+  <dd *ngFor="let expUnit of expUnits.armors">
+    <input type="number" class="txtfiled qty" [(ngModel)]="expUnit.quantity"/>
+    <span>{{expUnit.summary}} {{expUnit.exp}}</span>
+  </dd>
+  <dt>
+    小祝福聖霊
+  </dt>
+  <dd *ngFor="let expUnit of expUnits.spirits">
+    <input type="number" class="txtfiled qty" [(ngModel)]="expUnit.quantity"/>
+      <span>{{expUnit.summary}} {{expUnit.exp}}</span>
+  </dd>
+  </dl>
+</details>
+
+<!-- <div *ngIf="expTable">
+  <table *ngFor="let rarity of expTable.rarities">
+    {{rarity.name}}
+    <tr *ngFor="let exp of rarity.experiencePoints">
+      <th>{{exp.level}}</th>
+      <th>{{exp.totalExp}}</th>
+    </tr>
+  </table>
+</div> -->
+
+</section>
